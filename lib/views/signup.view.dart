@@ -23,96 +23,119 @@ class _SignupViewState extends State<SignupView> {
     AppStore store = Provider.of<AppStore>(context);
 
     return Scaffold(
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(40),
-          child: Form(
-            key: _formKey,
-            child: Column(
-              children: [
-                Text(
-                  "Cadastre-se",
-                  style: TextStyle(
-                    color: color,
-                  ),
-                ),
-                TextFormField(
-                  keyboardType: TextInputType.text,
-                  decoration: InputDecoration(
-                    icon: const Icon(Icons.person_rounded),
-                    iconColor: Theme.of(context).primaryColor,
-                    labelText: "Nome",
-                    labelStyle: TextStyle(
-                      color: color,
-                      fontWeight: FontWeight.w400,
-                      fontSize: 16,
-                    ),
-                  ),
-                  validator: (value) {
-                    if (value != null && value.isEmpty) {
-                      return 'Nome inválido';
-                    }
-                    return null;
-                  },
-                  onSaved: ((value) {
-                    model.name = value!;
-                  }),
-                ),
-                const SizedBox(height: 20),
-                TextFormField(
-                  keyboardType: TextInputType.emailAddress,
-                  decoration: InputDecoration(
-                    icon: const Icon(Icons.email),
-                    iconColor: Theme.of(context).primaryColor,
-                    labelText: "E-mail",
-                    labelStyle: TextStyle(
-                      color: color,
-                      fontWeight: FontWeight.w400,
-                      fontSize: 16,
-                    ),
-                  ),
-                  validator: (value) {
-                    if (value != null && value.isEmpty) {
-                      return 'E-mail inválido';
-                    }
-                    return null;
-                  },
-                  onSaved: ((value) {
-                    model.email = value!;
-                  }),
-                ),
-                const SizedBox(height: 20),
-                TextFormField(
-                  keyboardType: TextInputType.text,
-                  obscureText: true,
-                  decoration: InputDecoration(
-                    icon: const Icon(Icons.lock),
-                    iconColor: Theme.of(context).primaryColor,
-                    labelText: "Senha",
-                    labelStyle: TextStyle(
-                      color: color,
-                      fontWeight: FontWeight.w400,
-                      fontSize: 16,
-                    ),
-                  ),
-                  validator: (value) {
-                    if (value != null && value.isEmpty) {
-                      return 'Senha inválida';
-                    }
-                    return null;
-                  },
-                  onSaved: ((value) {
-                    model.password = value!;
-                  }),
-                ),
-                const SizedBox(height: 20),
-                model.busy
-                    ? const Center(
-                        child: CircularProgressIndicator(
-                          backgroundColor: Colors.black,
+      body: model.busy
+          ? const Center(
+              child: CircularProgressIndicator(
+                backgroundColor: Colors.black,
+              ),
+            )
+          : SingleChildScrollView(
+              child: Padding(
+                padding: const EdgeInsets.all(40),
+                child: Form(
+                  key: _formKey,
+                  child: Column(
+                    children: [
+                      Text(
+                        "Cadastre-se",
+                        style: TextStyle(
+                          color: color,
                         ),
-                      )
-                    : ElevatedButton(
+                      ),
+                      TextFormField(
+                        keyboardType: TextInputType.text,
+                        decoration: InputDecoration(
+                          icon: const Icon(Icons.person_rounded),
+                          iconColor: Theme.of(context).primaryColor,
+                          labelText: "Nome",
+                          labelStyle: TextStyle(
+                            color: color,
+                            fontWeight: FontWeight.w400,
+                            fontSize: 16,
+                          ),
+                        ),
+                        validator: (value) {
+                          if (value != null && value.isEmpty) {
+                            return 'Nome inválido';
+                          }
+                          return null;
+                        },
+                        onSaved: ((value) {
+                          model.name = value!;
+                        }),
+                      ),
+                      const SizedBox(height: 20),
+                      TextFormField(
+                        keyboardType: TextInputType.emailAddress,
+                        decoration: InputDecoration(
+                          icon: const Icon(Icons.email),
+                          iconColor: Theme.of(context).primaryColor,
+                          labelText: "E-mail",
+                          labelStyle: TextStyle(
+                            color: color,
+                            fontWeight: FontWeight.w400,
+                            fontSize: 16,
+                          ),
+                        ),
+                        validator: (value) {
+                          if (value != null && value.isEmpty) {
+                            return 'E-mail inválido';
+                          }
+                          return null;
+                        },
+                        onSaved: ((value) {
+                          model.email = value!;
+                        }),
+                      ),
+                      const SizedBox(height: 20),
+                      TextFormField(
+                        keyboardType: TextInputType.text,
+                        obscureText: true,
+                        decoration: InputDecoration(
+                          icon: const Icon(Icons.lock),
+                          iconColor: Theme.of(context).primaryColor,
+                          labelText: "Senha",
+                          labelStyle: TextStyle(
+                            color: color,
+                            fontWeight: FontWeight.w400,
+                            fontSize: 16,
+                          ),
+                        ),
+                        validator: (value) {
+                          if (value != null && value.isEmpty) {
+                            return 'Senha inválida';
+                          }
+                          return null;
+                        },
+                        onSaved: ((value) {
+                          model.password = value!;
+                        }),
+                      ),
+                      const SizedBox(height: 20),
+                      TextFormField(
+                        keyboardType: TextInputType.text,
+                        decoration: InputDecoration(
+                          icon: const Icon(Icons.image),
+                          iconColor: Theme.of(context).primaryColor,
+                          labelText: "URL da imagem de perfil",
+                          labelStyle: TextStyle(
+                            color: color,
+                            fontWeight: FontWeight.w400,
+                            fontSize: 16,
+                          ),
+                        ),
+                        validator: (value) {
+                          if (value != null && value.isEmpty) {
+                            return 'URL inválida';
+                          }
+                          return null;
+                        },
+                        onSaved: ((value) {
+                          model.picture = value!;
+                        }),
+                      ),
+                      const SizedBox(height: 20),
+                      ElevatedButton(
                         style: ButtonStyle(
                           backgroundColor:
                               MaterialStateProperty.all<Color>(color),
@@ -125,7 +148,6 @@ class _SignupViewState extends State<SignupView> {
 
                           setState(() {
                             _controller.create(model).then((data) {
-                              // TODO:
                               setState(() {});
                               store.setUser(
                                 data.name!,
@@ -141,11 +163,11 @@ class _SignupViewState extends State<SignupView> {
                           });
                         },
                       )
-              ],
+                    ],
+                  ),
+                ),
+              ),
             ),
-          ),
-        ),
-      ),
     );
   }
 }

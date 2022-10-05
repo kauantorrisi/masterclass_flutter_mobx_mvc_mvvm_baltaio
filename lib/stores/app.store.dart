@@ -11,7 +11,7 @@ abstract class _AppStore with Store {
   String email = '';
 
   @observable
-  String picture = 'https://placehold.it/200';
+  String picture = '';
 
   @observable
   String token = '';
@@ -22,5 +22,10 @@ abstract class _AppStore with Store {
     email = pEmail;
     picture = pPicture;
     token = pToken;
+  }
+
+  @action
+  void updatePicture(String newPicture) {
+    picture = newPicture;
   }
 }

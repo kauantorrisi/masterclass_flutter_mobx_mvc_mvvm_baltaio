@@ -6,9 +6,9 @@ class AccountRepository {
     await Future.delayed(const Duration(milliseconds: 1500));
     return UserModel(
         id: "1",
-        name: "Kauan Torrisi",
-        email: "torrisikauan@gmail.com",
-        picture: "https://picsum.photos/200/200",
+        name: model.name,
+        email: model.email,
+        picture: model.picture,
         role: "Estudante",
         token: "xpto");
   }

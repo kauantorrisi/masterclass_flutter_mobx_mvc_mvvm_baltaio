@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:masterclass_flutter_mobx_mvc_mvvm_baltaio/controllers/signup.controller.dart';
+import 'package:masterclass_flutter_mobx_mvc_mvvm_baltaio/stores/app.store.dart';
 import 'package:masterclass_flutter_mobx_mvc_mvvm_baltaio/view-models/signup.viewmodel.dart';
+import 'package:masterclass_flutter_mobx_mvc_mvvm_baltaio/views/home.view.dart';
+import 'package:provider/provider.dart';
 
 class SignupView extends StatefulWidget {
   const SignupView({super.key});
@@ -11,14 +14,13 @@ class SignupView extends StatefulWidget {
 
 class _SignupViewState extends State<SignupView> {
   final _formKey = GlobalKey<FormState>();
-
   final _controller = SignupController();
-
   final SignupViewModel model = SignupViewModel();
 
   @override
   Widget build(BuildContext context) {
     final color = Theme.of(context).primaryColor;
+    AppStore store = Provider.of<AppStore>(context);
 
     return Scaffold(
       body: SingleChildScrollView(
@@ -125,6 +127,16 @@ class _SignupViewState extends State<SignupView> {
                             _controller.create(model).then((data) {
                               // TODO:
                               setState(() {});
+                              store.setUser(
+                                data.name!,
+                                data.email!,
+                                data.picture!,
+                                data.token!,
+                              );
+                              Navigator.pushReplacement(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: ((context) => HomeView())));
                             });
                           });
                         },

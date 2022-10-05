@@ -1,5 +1,4 @@
 import 'package:masterclass_flutter_mobx_mvc_mvvm_baltaio/view-models/signup.viewmodel.dart';
-
 import '../models/user.model.dart';
 
 class AccountRepository {

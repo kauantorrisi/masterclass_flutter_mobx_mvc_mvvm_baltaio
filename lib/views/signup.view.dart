@@ -2,11 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:masterclass_flutter_mobx_mvc_mvvm_baltaio/controllers/signup.controller.dart';
 import 'package:masterclass_flutter_mobx_mvc_mvvm_baltaio/view-models/signup.viewmodel.dart';
 
-class SignupView extends StatelessWidget {
-  SignupView({super.key});
+class SignupView extends StatefulWidget {
+  const SignupView({super.key});
 
+  @override
+  State<SignupView> createState() => _SignupViewState();
+}
+
+class _SignupViewState extends State<SignupView> {
   final _formKey = GlobalKey<FormState>();
+
   final _controller = SignupController();
+
   final SignupViewModel model = SignupViewModel();
 
   @override
@@ -49,6 +56,7 @@ class SignupView extends StatelessWidget {
                     model.name = value!;
                   }),
                 ),
+                const SizedBox(height: 20),
                 TextFormField(
                   keyboardType: TextInputType.emailAddress,
                   decoration: InputDecoration(
@@ -71,8 +79,10 @@ class SignupView extends StatelessWidget {
                     model.email = value!;
                   }),
                 ),
+                const SizedBox(height: 20),
                 TextFormField(
                   keyboardType: TextInputType.text,
+                  obscureText: true,
                   decoration: InputDecoration(
                     icon: const Icon(Icons.lock),
                     iconColor: Theme.of(context).primaryColor,
@@ -93,18 +103,32 @@ class SignupView extends StatelessWidget {
                     model.password = value!;
                   }),
                 ),
-                ElevatedButton(
-                  style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.all<Color>(color),
-                  ),
-                  child: const Text("Cadastrar"),
-                  onPressed: () {
-                    if (_formKey.currentState!.validate()) {
-                      _formKey.currentState!.save();
-                    }
-                    _controller.create(model);
-                  },
-                )
+                const SizedBox(height: 20),
+                model.busy
+                    ? const Center(
+                        child: CircularProgressIndicator(
+                          backgroundColor: Colors.black,
+                        ),
+                      )
+                    : ElevatedButton(
+                        style: ButtonStyle(
+                          backgroundColor:
+                              MaterialStateProperty.all<Color>(color),
+                        ),
+                        child: const Text("Cadastrar"),
+                        onPressed: () {
+                          if (_formKey.currentState!.validate()) {
+                            _formKey.currentState!.save();
+                          }
+
+                          setState(() {
+                            _controller.create(model).then((data) {
+                              // TODO:
+                              setState(() {});
+                            });
+                          });
+                        },
+                      )
               ],
             ),
           ),

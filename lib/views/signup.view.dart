@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:masterclass_flutter_mobx_mvc_mvvm_baltaio/controllers/signup.controller.dart';
+import 'package:masterclass_flutter_mobx_mvc_mvvm_baltaio/view-models/signup.viewmodel.dart';
 
 class SignupView extends StatelessWidget {
   SignupView({super.key});
 
   final _formKey = GlobalKey<FormState>();
+  final _controller = SignupController();
+  final SignupViewModel model = SignupViewModel();
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +45,9 @@ class SignupView extends StatelessWidget {
                     }
                     return null;
                   },
-                  onSaved: ((value) {}),
+                  onSaved: ((value) {
+                    model.name = value!;
+                  }),
                 ),
                 TextFormField(
                   keyboardType: TextInputType.emailAddress,
@@ -61,7 +67,9 @@ class SignupView extends StatelessWidget {
                     }
                     return null;
                   },
-                  onSaved: ((value) {}),
+                  onSaved: ((value) {
+                    model.email = value!;
+                  }),
                 ),
                 TextFormField(
                   keyboardType: TextInputType.text,
@@ -81,7 +89,9 @@ class SignupView extends StatelessWidget {
                     }
                     return null;
                   },
-                  onSaved: ((value) {}),
+                  onSaved: ((value) {
+                    model.password = value!;
+                  }),
                 ),
                 ElevatedButton(
                   style: ButtonStyle(
@@ -92,6 +102,7 @@ class SignupView extends StatelessWidget {
                     if (_formKey.currentState!.validate()) {
                       _formKey.currentState!.save();
                     }
+                    _controller.create(model);
                   },
                 )
               ],
